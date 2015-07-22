@@ -1,0 +1,15 @@
+<div class="tile recent-list" ng-show="state.recent.length>0">
+    <div class="header">
+        Recent checkins/checkouts
+    </div>
+    
+    <div class="body">
+
+        <div class="person-status" ng-repeat="p in state.recent">
+            <i class="glyphicon glyphicon-log-{{ p.state }}"></i>
+            {{ p.person.name }}
+            <span class="time">{{ p.time }}</span>
+        </div>
+    </div>
+</div>
+

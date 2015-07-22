@@ -1,0 +1,20 @@
+<div class="tile room-status">
+
+    <div class="header">
+        Rooms
+    </div>
+
+    <div class="body">
+        <div class="row">
+            <div class="col-sm-6" ng-repeat="roomId in allRooms">
+                <div class="room {{ state.rooms[roomId].state }}">
+                    <span class="room-id">{{ roomId }}</span>
+                    <span class="status">
+                        {{ state.rooms[roomId].in || '0' }} /
+                        {{ state.rooms[roomId].total || '?' }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
