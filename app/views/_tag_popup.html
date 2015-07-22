@@ -1,0 +1,26 @@
+
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Hi, {{ tag.owner.name }} {{ tag.room }}!</h3>
+    </div>
+
+    <div class="modal-body">
+
+        <div ng-show="busy">
+            <h1 class="holdon">Hold on...</h1>
+        </div>
+        
+        <div ng-show="!busy">
+            <div ng-show="tag.status == 'present'">
+                <h1 class="green">You are now checked in</h1>
+            </div>
+            
+            <div ng-show="tag.status == 'absent'">
+                <h1 class="red">You are now checked out.</h1>
+            </div>
+            
+            <p class="foot">Have a nice day!</p>
+        </div>
+        
+    </div>
+</div>

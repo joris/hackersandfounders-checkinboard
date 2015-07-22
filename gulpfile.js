@@ -18,7 +18,8 @@ var templateCache = require('gulp-angular-templatecache');
 gulp.task('server', function() {
   return gulp.src('./dist')
     .pipe(webserver({
-      port: 8003,
+      port: 4000,
+      host: '10.0.7.137',
       livereload: true
     }));
 });

@@ -26,14 +26,61 @@ angular.module('board', [
 
   })
 
-  .controller('BoardController', function($scope, Data) {
+  .controller('BoardController', function($scope, Data, $timeout, $modal) {
 
     $scope.allRooms = ['1.1', '1.2', '2.1', '2.2', '3.1', '3.2', '4.1', '4.2'];
-    
-    Data.getBoardState().then(function(state) {
-      $scope.state = state; //$scope.$broadcast('boardstate', state);
-    });
 
+    function reload() {
+      Data.getBoardState().then(function(state) {
+        $scope.state = state; //$scope.$broadcast('boardstate', state);
+      });
+      $timeout(reload, 5000);
+    }
+    $scope.$on('refresh', reload);
+    
+    reload();
+
+    var tagModal, tagModalTimer;
+    function closeModal() {
+      if (tagModal) {
+        tagModal.close();
+        tagModal = null;
+      }
+      if (tagModalTimer) {
+        $timeout.cancel(tagModalTimer);
+      }
+      tagModalTimer = null;
+    }
+
+    window.tag = function(tag) {
+      if (typeof tag == 'string' && tag.match(/^0F00/i)) {
+        // strip 0f00, convert to tag nr
+        tag = parseInt(tag.substr(4), 16) >>> 8;
+      }
+      closeModal();
+      tagModal = $modal.open({
+        templateUrl: '/views/_tag_popup.html',
+        windowClass: 'tag-popup',
+        scope: $scope,
+        controller: function($scope) {
+          $scope.busy = true;
+
+          Data.getTagInfo(tag).then(function(r) {
+            $scope.tag = r;
+
+            var newState = r.status == 'present' ? 'absent' : 'present';
+            Data.updateTagStatus(tag, newState).then(function(r) {
+              $scope.tag = r;
+              $scope.busy = false;
+              $scope.$emit('refresh');
+              tagModalTimer = $timeout(closeModal, 3000);
+            }, function(){});
+            
+          });
+        }
+      });
+    };
+    
   })
 
 ;

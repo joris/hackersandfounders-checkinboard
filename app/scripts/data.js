@@ -21,33 +21,33 @@ angular.module('board.data', [])
       // calculate per-person's presence state
       var states = _(people)
         .map(
-        function(p) {
-          var unsureFlag = false;
+          function(p) {
+            var unsureFlag = false;
 
-          // get most recent tag
-          var tag = _(p.tags).sort('updated_at').last();
-          var ts = moment(tag.updated_at);
-          var delta = moment().diff(ts, 'seconds');
+            // get most recent tag
+            var tag = _(p.tags).sortBy('updated_at').last();
+            var ts = moment(tag.updated_at);
+            var delta = moment().diff(ts, 'seconds');
 
-          if (delta > 3600*12) {
-            unsureFlag = true;
-          }
-          var checkinState = tag.status == 'present' ? 'in' : 'out';
+            if (delta > 3600*12) {
+              unsureFlag = true;
+            }
+            var checkinState = tag.status == 'present' ? 'in' : 'out';
 
-          return {
-            person: p,
-            room: p.room,
-            date: moment(tag.updated_at),
-            state: checkinState,
-            unsure: unsureFlag,
-            time: ts.format("HH:mm")
-          };
-        })
+            return {
+              person: p,
+              room: p.room,
+              date: moment(tag.updated_at),
+              state: checkinState,
+              unsure: unsureFlag,
+              time: ts.format("HH:mm")
+            };
+          })
         .sort('date')
         .reverse()
         .value();
 
-      var roomData = _(states)
+      var rooms = _(states)
         .groupBy('room')
         .mapValues(function(v) {
           var inCount = _(v).filter({state:'in'}).value().length;
@@ -60,16 +60,16 @@ angular.module('board.data', [])
         .value();
       
       var recent = _(states).reject('unsure').slice(0,8).value();
-      console.log('x', recent);
-
+      var unsure = _(states).filter('unsure').map('person').slice(0,8).value();
+      
       return {
         people: {
           'in': _.filter(states, {state: 'in'}).length,
           'out': _.filter(states, {state: 'out'}).length
         },
-        rooms: roomData,
+        rooms: rooms,
         recent: recent,
-        unsure: _(states).filter('unsure').map('person').slice(0,8).value()
+        unsure: unsure
       };
     }
     
@@ -107,6 +107,16 @@ angular.module('board.data', [])
                time: '9:34'}
             ]
           };
+        });
+      },
+      getTagInfo: function(tag) {
+        return $http.get(Config.baseUrl + 'tags/' + tag).then(function(r) {
+          return r.data.tag;
+        });
+      },
+      updateTagStatus: function(tag, status) {
+        return $http.patch(Config.baseUrl + 'tags/' + tag, {status: status}).then(function(r) {
+          return r.data.tag;
         });
       }
     };
