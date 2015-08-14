@@ -1,7 +1,8 @@
 
 <div>
     <div class="modal-header">
-        <h3 class="modal-title">Hi, {{ tag.owner.name }} {{ tag.room }}!</h3>
+        <span class="meta pull-right">Room: {{ tag.owner.room }} / Company: {{ tag.owner.company }}</span>
+        <h3 class="modal-title">Hi, {{ tag.owner.name }}!</h3>
     </div>
 
     <div class="modal-body">

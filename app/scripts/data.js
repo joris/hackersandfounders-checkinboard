@@ -37,13 +37,13 @@ angular.module('board.data', [])
             return {
               person: p,
               room: p.room,
-              date: moment(tag.updated_at),
+              date: moment(tag.updated_at).unix(),
               state: checkinState,
               unsure: unsureFlag,
               time: ts.format("HH:mm")
             };
           })
-        .sort('date')
+        .sortBy('date')
         .reverse()
         .value();
 
@@ -59,7 +59,7 @@ angular.module('board.data', [])
         })
         .value();
       
-      var recent = _(states).reject('unsure').slice(0,8).value();
+      var recent = _(states).reject('unsure').slice(0,12).value();
       var unsure = _(states).filter('unsure').map('person').slice(0,8).value();
       
       return {

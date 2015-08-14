@@ -107,7 +107,7 @@ gulp.task('usemin', ['styles'], function () {
 // ----------------------------------------
 gulp.task('pipeline', function () {
 
-  return gulp.src(['./app/fonts/**', './app/img/**'],
+  return gulp.src(['./app/fonts/**', './app/img/**', './app/sounds/**'],
                   {base: './app'})
     .pipe(gulp.dest('dist'));
 });
