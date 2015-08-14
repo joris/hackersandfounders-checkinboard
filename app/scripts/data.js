@@ -5,7 +5,7 @@ angular.module('board.data', [])
     //baseUrl: 'http://building.10.0.7.158.xip.io/api/v1/'
   })
 
-  .factory('Data', function($http, $q, Config) {
+  .factory('Data', function($http, Config) {
 
     function getPresenceList() {
       return $http.get(Config.baseUrl + 'presence').then(function(r) {
@@ -78,35 +78,6 @@ angular.module('board.data', [])
       getBoardState: function() {
         return getPresenceList().then(function(people) {
           return calculateBoardState(people);
-          return {
-            people: {
-              'in': 45,
-              out: 43,
-            },
-            rooms: {
-              "1.1": {
-                'in': 3,
-                'total': 10,
-                state: 'inhabited'	
-              }
-            },
-            recent: [
-              {type: 'in',
-               name: 'Arjan Scherpenisse',
-               time: '9:14'},
-              {type: 'out',
-               name: 'Eric Holm',
-               time: '9:34'}
-            ],
-            unsure: [
-              {type: 'in',
-               name: 'Arjan Scherpenisse',
-               time: '9:14'},
-              {type: 'out',
-               name: 'Eric Holm',
-               time: '9:34'}
-            ]
-          };
         });
       },
       getTagInfo: function(tag) {
