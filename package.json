@@ -4,7 +4,6 @@
   "description": "Hackers and Founders - Checkin board",
   "author": "Arjan Scherpenisse",
   "license": "MIT",
-  
   "devDependencies": {
     "babel": "^4.0.1",
     "babelify": "^5.0.3",
@@ -15,8 +14,10 @@
     "gulp-angular-templatecache": "^1.6.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.5.2",
+    "gulp-less": "^3.0.3",
     "gulp-minify-css": "^0.4.5",
     "gulp-minify-html": "^0.1.8",
+    "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.1.0",
     "gulp-webserver": "^0.9.0",
     "jshint-stylish": "^1.0.0",

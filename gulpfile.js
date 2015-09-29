@@ -18,7 +18,7 @@ gulp.task('server', function() {
   return gulp.src('./dist')
     .pipe(webserver({
       port: 4000,
-      host: '10.0.7.137',
+      host: '10.0.7.22',
       livereload: true
     }));
 });
