@@ -55,8 +55,8 @@ angular.module('board', [
       tagModalTimer = null;
     }
 
-    var checkin = new Audio(); checkin.src = "/sounds/sign_in.mp3"; checkin.load();
-    var checkout = new Audio(); checkout.src = "/sounds/sign_out.mp3"; checkout.load();
+    var checkin = new Audio(); checkin.src = "sounds/sign_in.mp3"; checkin.load();
+    var checkout = new Audio(); checkout.src = "sounds/sign_out.mp3"; checkout.load();
     
     window.tag = function(tag) {
       
