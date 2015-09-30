@@ -1,0 +1,122 @@
+$pad: 10px;
+$mainbg: #599C88;
+$lightgray: #f0f0f0;
+$mediumgray: #777;
+
+$red: #c00;
+$green: #33ee33;
+$tilepad: 3*$pad;
+
+$fontNormal: 16px;
+$fontMedium: 24px;
+$fontLarge: 46px;
+
+body {
+    padding: $tilepad;
+    background: $mainbg;
+    font-weight: 400;
+}
+
+div.tile {
+    background: white;
+    padding: $pad;
+    margin-bottom: $tilepad;
+    box-shadow: 6px 6px 6px rgba(0,0,0,0.1);
+    
+    >.header {
+        font-size: $fontMedium;
+        font-weight: 500;
+        color: $mediumgray;
+    }
+    >.body {
+        margin-top: $pad;
+        padding-top: $pad;
+        border-top: 2px solid $lightgray;
+    }
+}
+
+
+div.tile.people-status {
+    .row.inout {
+        font-size: 40px;
+        span { font-weight: 500; }
+        .out { color: $red; }
+        .in { color: $green; };
+    }
+}
+
+div.tile.room-status {
+    >.body {
+        padding-bottom: 0;
+    }
+    div.room {
+        height: 80px;
+        position: relative;
+        background: $lightgray;
+        margin-bottom: $pad;
+        span.room-id {
+            margin: 2px;
+        }
+        span.status {
+            position: absolute;
+            width: 100%;
+            display: block;
+            text-align: center;
+            font-weight: 500;
+            font-size: $fontMedium;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        &.inhabited {
+            background: $green;
+        }
+    }
+}
+
+div.person-status {
+    font-size: $fontMedium;
+    font-weight: 500;
+    i {
+        padding-right: $pad/2;
+    }
+    
+    .time {
+        font-weight: 400;
+        font-size: $fontNormal;
+        color: $mediumgray;
+    }
+    margin-bottom: $pad;
+}
+
+div.tag-popup {
+    .modal-header {
+        font-weight: 500;
+        font-size: $fontMedium;
+        .meta {
+            font-size: $fontNormal;
+            color: $mediumgray;
+            margin-top: $pad;
+            font-weight: 400;
+        }
+    }
+    
+    .modal-dialog {
+        margin-top: 200px;
+    }
+    
+    .foot {
+        text-align: center;
+        color: $mediumgray;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-top: $pad*4;
+        margin-bottom: $pad*4;
+    }
+    
+    .green { color: $green; }
+    .red { color: $red; }
+    .holdon { color: $mediumgray; }
+    
+}
